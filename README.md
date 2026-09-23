@@ -273,12 +273,6 @@ dbt docs serve --port 8081
 
 This opens a local site with the dependency graph built entirely from the `ref()` and `source()` calls in the model files: `insurance_claims_raw → stg_insurance_claims → insurance_claims_dbt → insurance_claims_status`, plus the `policy_closures` seed feeding into the last one. Nothing about that order is declared anywhere else in the project — dbt derives it from the references alone.
 
-## Things that actually went wrong while building this
-
-- `aws lakeformation list-permissions` needs `--resource` whenever `--principal` is set, e.g. `--resource '{"Database": {"Name": "curated"}}'`. Most other `list-*` commands don't require that, so it's easy to forget.
-- A missing `s3:GetBucketLocation` on the analyst or dbt policy produces an Athena failure that reads like a permissions problem somewhere else entirely. It needs to sit alongside `GetObject`/`PutObject`/`ListBucket` on the results bucket.
-- `python3 -m dbt` does not work. `dbt-core` doesn't ship a `__main__.py`, so this fails with `No module named dbt.__main__`. If `dbt` isn't found after installing, it's almost always a PATH issue from installing outside a virtualenv. `python3 -m venv .venv && source .venv/bin/activate`, confirm `which python3` points into the venv, then just use `dbt` directly.
-
 ## Cleanup
 
 None of this bills continuously, but leftover roles, buckets, and grants have a way of turning into a monthly charge nobody notices for a while.
