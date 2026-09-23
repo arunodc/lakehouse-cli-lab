@@ -1,0 +1,9 @@
+version: 2
+
+models:
+  - name: insurance_claims_dbt
+    columns:
+      - name: policy_id
+        tests:
+          - unique
+          - not_null

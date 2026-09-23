@@ -1,0 +1,21 @@
+# Copy to ~/.dbt/profiles.yml and fill in REGION and your bucket names.
+# No access key goes in this file — dbt authenticates through whatever
+# credentials are already exported in your shell (see README: "assume the
+# LakehouseDbt role" in the dbt section).
+#
+# "database" is always AwsDataCatalog — Athena's fixed name for the default
+# Glue Data Catalog. "schema" is the actual Glue database you're targeting.
+
+lakehouse:
+  target: dev
+  outputs:
+    dev:
+      type: athena
+      s3_staging_dir: s3://arun-lakehouse-athena-results/dbt-staging/
+      s3_data_dir: s3://arun-lakehouse-curated/dbt/
+      s3_data_naming: table_unique
+      region_name: REGION
+      database: AwsDataCatalog
+      schema: curated
+      work_group: analytics-prod
+      threads: 2

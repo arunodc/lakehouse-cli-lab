@@ -1,0 +1,11 @@
+# dbt
+target/
+dbt_packages/
+logs/
+
+# credentials / local state — never commit these
+*-creds.json
+.env
+
+# OS
+.DS_Store

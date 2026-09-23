@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: raw
+    database: AwsDataCatalog
+    schema: raw
+    tables:
+      - name: insurance_claims_raw

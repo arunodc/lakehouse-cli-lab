@@ -1,0 +1,10 @@
+name: 'lakehouse'
+version: '1.0.0'
+profile: 'lakehouse'
+
+models:
+  lakehouse:
+    staging:
+      +materialized: view
+    marts:
+      +materialized: table

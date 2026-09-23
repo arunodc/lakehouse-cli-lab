@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-label="Diagram: dbt dependency graph. raw.insurance_claims_raw, a source, feeds stg_insurance_claims, a staging view. stg_insurance_claims feeds insurance_claims_dbt, a curated Iceberg table built with ref(). insurance_claims_dbt and the policy_closures seed both feed insurance_claims_status, an incremental Iceberg model that merges in closure status via a left join. dbt derives this entire graph automatically from the ref() and source() calls in each model, with no ordering written down anywhere by hand.">
+  <defs>
+    <marker id="db-accent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0e6b73"/></marker>
+    <marker id="db-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#566864"/></marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="300" fill="#ffffff"/>
+
+  <text x="20" y="22" font-family="'IBM Plex Mono', monospace" font-size="10.5" font-weight="700" letter-spacing="0.05em" fill="#0e6b73">DBT LINEAGE — DERIVED AUTOMATICALLY FROM ref() / source()</text>
+
+  <!-- source -->
+  <rect x="20" y="115" width="170" height="70" rx="8" fill="#eef3f1" stroke="#dbe4e0" stroke-width="1.4"/>
+  <text x="105" y="135" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="9" fill="#566864">source (Step 5/6a table)</text>
+  <text x="105" y="155" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#16211f">raw.insurance_claims_raw</text>
+  <text x="105" y="172" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="8" fill="#566864">source('raw', '...')</text>
+
+  <line x1="190" y1="150" x2="248" y2="150" stroke="#0e6b73" stroke-width="1.6" marker-end="url(#db-accent)"/>
+
+  <!-- staging -->
+  <rect x="250" y="115" width="190" height="70" rx="8" fill="#ffffff" stroke="#dbe4e0" stroke-width="1.4"/>
+  <text x="345" y="135" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="9" fill="#566864">staging model — view</text>
+  <text x="345" y="155" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#16211f">stg_insurance_claims</text>
+  <text x="345" y="172" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="8" fill="#566864">models/staging/</text>
+
+  <line x1="440" y1="150" x2="498" y2="150" stroke="#0e6b73" stroke-width="1.6" marker-end="url(#db-accent)"/>
+
+  <!-- mart 1 -->
+  <rect x="500" y="115" width="200" height="70" rx="8" fill="#e2f1f1" stroke="#0e6b73" stroke-width="1.6"/>
+  <text x="600" y="135" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="9" fill="#566864">mart — Iceberg table</text>
+  <text x="600" y="155" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#094d53">insurance_claims_dbt</text>
+  <text x="600" y="172" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="8" fill="#566864">ref('stg_insurance_claims')</text>
+
+  <line x1="700" y1="150" x2="758" y2="150" stroke="#0e6b73" stroke-width="1.6" marker-end="url(#db-accent)"/>
+
+  <!-- seed -->
+  <rect x="500" y="215" width="200" height="60" rx="8" fill="#fbe9dc" stroke="#b6560c" stroke-width="1.4"/>
+  <text x="600" y="234" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="9" fill="#566864">seed — static CSV</text>
+  <text x="600" y="253" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9.5" font-weight="700" fill="#b6560c">policy_closures</text>
+  <text x="600" y="268" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="8" fill="#566864">seeds/policy_closures.csv</text>
+
+  <line x1="700" y1="245" x2="740" y2="200" stroke="#b6560c" stroke-width="1.5" marker-end="url(#db-muted)"/>
+
+  <!-- mart 2 -->
+  <rect x="760" y="130" width="120" height="90" rx="8" fill="#e2f1f1" stroke="#0e6b73" stroke-width="1.6"/>
+  <text x="820" y="150" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="8.5" fill="#566864">incremental merge</text>
+  <text x="820" y="170" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9" font-weight="700" fill="#094d53">insurance_claims</text>
+  <text x="820" y="184" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="9" font-weight="700" fill="#094d53">_status</text>
+  <text x="820" y="203" text-anchor="middle" font-family="'Public Sans', system-ui, sans-serif" font-size="7.5" fill="#566864">left join on policy_id</text>
+
+  <text x="20" y="260" font-family="'Public Sans', system-ui, sans-serif" font-size="10" fill="#566864">Every arrow above comes from a ref() or source() call written in the model file — dbt builds this</text>
+  <text x="20" y="278" font-family="'Public Sans', system-ui, sans-serif" font-size="10" fill="#566864">graph and the correct build order from those calls alone, with no ordering declared anywhere else.</text>
+</svg>
